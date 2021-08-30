@@ -3,36 +3,20 @@ package data_structures.medium;
 import java.util.Scanner;
 
 public class Java1DArray2 {
-    public static boolean canWin(int leap, int[] game) {
-        int i = 0;
-        while (true) {
-            if (i + 1 >= game.length || i + leap >= game.length) {
-                return true;
-            }
-            if (game[i + leap] == 0) {
-                i += leap;
-            } else if (i > 0 && game[i + leap] != 0) {
-                int j = i;
-                boolean status = true;
-                while (status) {
-                    if (game[j - 1] == 0) {
-                        j--;
-                        if (game[j + leap] == 0) {
-                            i = j + leap;
-                            break;
-                        } else if (j == 0) {
-                            status = false;
-                        }
-                    } else {
-                        status = false;
-                    }
-                }
-            } else if (game[i + 1] == 0) {
-                i++;
-            } else {
-                return false;
-            }
+    private static boolean isSolvable(int leap, int[] game, int position) {
+        // Base Cases
+        if (position >= game.length) {
+            return true;
+        } else if (position < 0 || game[position] == 1) {
+            return false;
         }
+
+        game[position] = 1; // marks as visited
+
+        // Recursive Cases
+        return isSolvable(leap, game, position + leap) ||
+                isSolvable(leap, game, position + 1) ||
+                isSolvable(leap, game, position - 1);
     }
 
     public static void main(String[] args) {
@@ -47,7 +31,7 @@ public class Java1DArray2 {
                 game[i] = scan.nextInt();
             }
 
-            System.out.println((canWin(leap, game)) ? "YES" : "NO");
+            System.out.println((isSolvable(leap, game, 0)) ? "YES" : "NO");
         }
         scan.close();
     }
