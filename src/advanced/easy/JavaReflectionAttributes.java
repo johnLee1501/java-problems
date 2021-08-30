@@ -1,4 +1,4 @@
-package advanced;
+package advanced.easy;
 
 
 import java.lang.reflect.Method;

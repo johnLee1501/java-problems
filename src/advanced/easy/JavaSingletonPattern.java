@@ -1,4 +1,4 @@
-package advanced;
+package advanced.easy;
 
 public class JavaSingletonPattern {
     private volatile static JavaSingletonPattern instance;
